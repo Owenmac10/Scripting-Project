@@ -1,0 +1,21 @@
+import zmq
+
+context = zmq.Context()
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://localhost:5561")
+
+
+username = input("Enter your username4: ") or "t00206404"
+password = input("Enter your password4"
+                 ": ") or "Owen"
+
+
+message = f"{username},{password}".encode()
+socket.send(message)
+
+
+response = socket.recv()
+print(response.decode())
+print(response)
+
+

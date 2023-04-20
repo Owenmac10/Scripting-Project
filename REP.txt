@@ -1,0 +1,22 @@
+import zmq
+
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:5561")
+
+while True:
+
+    message = socket.recv()
+
+    username, password = message.decode().split(",")
+
+    if username == "t00206404" and password == "Owen":
+        response = b"Welcome to the server!"
+    else:
+        response = b"Invalid credentials"
+    socket.send(response)
+
+
+
+
+
