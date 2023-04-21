@@ -1,0 +1,9 @@
+import zmq
+context = zmq.Context()
+socket = context.socket(zmq.SUB)
+socket.context("tcp://127.0.0.1:2000")
+socket.setsockopt(zmq.SUBSCRIBE, '')
+
+while True:
+    message = socket.recv_pyobj()
+    print(message)
