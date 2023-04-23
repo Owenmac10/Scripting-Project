@@ -1,0 +1,11 @@
+import zmq
+context = zmq.Context()
+socket=context.socket(zmq.REP)
+socket.connect("tcp://127.0.0.1:7777")
+
+while True:
+    message = socket.recv()
+    print(f"from client : {message}")
+    message = input("enter your mesage here: ")
+    socket.send(message)
+    print('')
