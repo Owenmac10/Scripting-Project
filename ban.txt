@@ -1,0 +1,19 @@
+import zmq
+
+# Define a dictionary of banned words and their replacements
+banned_words = {"foo": "flowers", "bar": "butterflies", "baz": "bubbles"}
+
+context = zmq.Context()
+socket = context.socket(zmq.PULL)
+socket.bind("tcp://*:5555")
+
+while True:
+    message = socket.recv().decode()
+    print("Received message: %s" % message)
+
+    # Check if any banned words are in the message
+    for word in message.split():
+        if word in banned_words:
+            print("Banned word detected: %s" % word)
+            message = message.replace(word, banned_words[word])
+            print("Cleaned message: %s" % message)
