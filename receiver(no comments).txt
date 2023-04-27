@@ -1,0 +1,23 @@
+import zmq
+
+context = zmq.Context()#acts as container it enables the sockets
+
+# Connect to the first port(server_2)
+socket1 = context.socket(zmq.SUB)
+socket1.connect("tcp://127.0.0.1:5561")
+socket1.setsockopt_string(zmq.SUBSCRIBE, "")
+
+
+# Connect to the second port (server 3)
+socket2 = context.socket(zmq.SUB)
+socket2.connect("tcp://127.0.0.1:5562")
+socket2.setsockopt_string(zmq.SUBSCRIBE, "")
+
+while True:
+    # Receive messages from the first port
+    message1 = socket1.recv().decode()
+    print("Received message from server 2: %s" % message1)
+
+    # Receive messages from the second port
+    message2 = socket2.recv().decode()
+    print("Received message from server 3: %s" % message2)
