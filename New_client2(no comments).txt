@@ -1,0 +1,10 @@
+import zmq
+
+context = zmq.Context()
+socket = context.socket(zmq.PUSH)
+socket.connect("tcp://localhost:5587")
+
+while True:
+    message = input("Enter message: ")
+    socket.send(message.encode())
+
